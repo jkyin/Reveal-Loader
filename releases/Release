@@ -1,0 +1,8 @@
+Origin: rheard.com/cydia
+Label: rheard.com/cydia
+Suite: stable
+Version: 1.6.3
+Codename: rheard-com-cydia
+Architectures: iphoneos-arm
+Components: main
+Description: rheard.com/cydia

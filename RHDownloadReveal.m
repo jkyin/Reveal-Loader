@@ -19,7 +19,7 @@ char endianness = IS_LITTLE_ENDIAN;
 
 //download libReveal using partialzip
 
-NSString *downloadURL = @"https://public.jkyin.me/libReveal.dylib";
+NSString *downloadURL = @"https://public.jkyin.me/libReveal.dylib.zip";
 NSString *zipPath = @"libReveal.dylib";
 
 NSString *folder = @"/Library/RHRevealLoader";

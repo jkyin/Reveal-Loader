@@ -1,14 +1,16 @@
 #!/bin/bash
 set -e
 
-make clean
-make
-make package
+if which dpkg >/dev/null; then
+    make clean
+    make
+    make package
 
-brew install dpkg
+    cd releases
 
-cd releases
-
-dpkg-scanpackages debs | bzip2 -c > Packages.bz2
-dpkg-scanpackages debs | gzip -c > Packages.gz
-
+    dpkg-scanpackages debs | bzip2 -c > Packages.bz2
+    dpkg-scanpackages debs | gzip -c > Packages.gz
+else
+    echo "error: dpkg not installed, please \"brew install dpkg\""
+    exit -1
+fi

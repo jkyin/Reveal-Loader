@@ -10,7 +10,7 @@
 %ctor {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSDictionary *prefs = [[NSDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.rheard.RHRevealLoader.plist"] retain];
-    NSString *libraryPath = @"/Library/RHRevealLoader/libReveal.dylib";
+    NSString *libraryPath = @"/Library/RHRevealLoader/RevealServer";
 
     if([[prefs objectForKey:[NSString stringWithFormat:@"RHRevealEnabled-%@", [[NSBundle mainBundle] bundleIdentifier]]] boolValue]) {
         if ([[NSFileManager defaultManager] fileExistsAtPath:libraryPath]){

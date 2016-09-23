@@ -19,8 +19,8 @@ char endianness = IS_LITTLE_ENDIAN;
 
 //download RevealServer using partialzip
 
-NSString *downloadURL = @"https://public.jkyin.me/libReveal.dylib.zip";
-NSString *zipPath = @"RevealServer";
+NSString *downloadURL = @"https://dl.devmate.com/com.ittybittyapps.Reveal2/Reveal.zip";
+NSString *zipPath = @"Reveal.app/Contents/SharedSupport/iOS-Libraries/RevealServer.framework/RevealServer";
 
 NSString *folder = @"/Library/RHRevealLoader";
 NSString *filename = @"RevealServer";

@@ -9,7 +9,7 @@ Maintainer: Jack Yin <jkyin.me>
 Author: Richard Heard <cydia@rheard.com>
 Section: Tweaks
 Description: dynamically loads Reveal into applications
- RevealLoader dynamically loads libReveal.dylib (Reveal.app support) into iOS apps
+ RevealLoader dynamically loads RevealServer (Reveal.app support) into iOS apps
  on jailbroken devices. Configuration is via the Reveal menu in Settings.app
  For more info, see http://github.com/heardrwt/RevealLoader and http://revealapp.com
  or contact to https://jkyin.me

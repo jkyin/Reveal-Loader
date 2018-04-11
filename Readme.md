@@ -1,3 +1,3 @@
 Fork from https://github.com/heardrwt/RevealLoader
 
-Support for Reveal 10.
+Support for Reveal 14.

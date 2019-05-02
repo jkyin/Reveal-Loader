@@ -1,7 +1,7 @@
-Origin: https://cydia.jkyin.me
+Origin: Jkyin Repo
 Label: jkyin
 Suite: stable
-Version: 22.0
+Version: 1.0
 Codename: cydia-jkyin-me
 Architectures: iphoneos-arm
 Components: main

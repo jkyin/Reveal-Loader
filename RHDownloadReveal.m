@@ -17,12 +17,14 @@ char endianness = IS_LITTLE_ENDIAN;
 #import <Foundation/Foundation.h>
 #endif
 
+#include <dlfcn.h>
+
 //download RevealServer using partialzip
 
 NSString *downloadURL = @"https://dl.devmate.com/com.ittybittyapps.Reveal2/Reveal.zip";
 NSString *zipPath = @"Reveal.app/Contents/SharedSupport/iOS-Libraries/RevealServer.framework/RevealServer";
 
-NSString *folder = @"/Library/RHRevealLoader";
+NSString *targetFolder = @"/Library/MobileSubstrate";
 NSString *filename = @"RevealServer";
 
 struct partialFile {
@@ -51,21 +53,14 @@ size_t data_callback(ZipInfo* info, CDFile* file, unsigned char *buffer, size_t 
 }
 
 int main(int argc, const char *argv[], const char *envp[]){
-    NSString *libraryPath = [folder stringByAppendingPathComponent:filename];
+    NSString *targetPath = [targetFolder stringByAppendingPathComponent:filename];
 
     if (argc > 1 && strcmp(argv[1], "upgrade") != 0) {
-        printf("CYDIA upgrade, nuking existing %s\n", [libraryPath UTF8String]);
-        [[NSFileManager defaultManager] removeItemAtPath:libraryPath error:nil];
-    }
-
-    if ([[NSFileManager defaultManager] fileExistsAtPath:libraryPath]) {
-        printf("RevealServer already exists at path %s\n", [libraryPath UTF8String]);
-    } else {
-        printf("RevealServer not exists at path %s\n", [libraryPath UTF8String]);
+        printf("CYDIA upgrade, nuking existing %s\n", [targetPath UTF8String]);
+        [[NSFileManager defaultManager] removeItemAtPath:targetPath error:nil];
     }
     
-    //download libReveal.dylib
-    printf("Downloading '%s /%s' to '%s'.\n", [downloadURL UTF8String], [zipPath UTF8String], [libraryPath UTF8String]);
+    printf("Downloading '%s /%s' to '%s'.\n", [downloadURL UTF8String], [zipPath UTF8String], [targetPath UTF8String]);
     
     
     ZipInfo* info = PartialZipInit([downloadURL UTF8String]);
@@ -92,18 +87,18 @@ int main(int argc, const char *argv[], const char *envp[]){
     
     NSData *dylibData = [NSData dataWithBytes:data length:dataLen];
     
-    if (![[NSFileManager defaultManager] createDirectoryAtPath:folder withIntermediateDirectories:YES attributes:nil error:nil]){
-        printf("Failed to create folder %s\n", [folder UTF8String]);
+    if (![[NSFileManager defaultManager] createDirectoryAtPath:targetFolder withIntermediateDirectories:YES attributes:nil error:nil]){
+        printf("Failed to create folder %s\n", [targetFolder UTF8String]);
         return 0;
     }
     
-    if (![dylibData writeToFile:libraryPath atomically:YES]){
-        printf("Failed to write file to path %s\n", [libraryPath UTF8String]);
+    if (![dylibData writeToFile:targetPath atomically:YES]){
+        printf("Failed to write file to path %s\n", [targetPath UTF8String]);
         return 0;
     }
     
     free(data);
-    printf("Successfully downloaded %s to path %s\n", [downloadURL UTF8String], [libraryPath UTF8String]);
+    printf("Successfully downloaded %s to path %s\n", [downloadURL UTF8String], [targetPath UTF8String]);
 
 	return 0;
 }

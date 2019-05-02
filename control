@@ -2,7 +2,7 @@ Package: me.jkyin.revealloader2
 Conflicts: me.jkyin.revealloader2, com.rheard.reveal-loader, me.jkyin.reveal-loader
 Replaces: me.jkyin.revealloader2, com.rheard.reveal-loader, me.jkyin.reveal-loader
 Name: Reveal Loader 2
-Version: 22.0
+Version: 22.0.1
 Architecture: iphoneos-arm
 Depends: mobilesubstrate, preferenceloader, applist
 Maintainer: Jack Yin <jkyin.me>

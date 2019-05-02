@@ -7,25 +7,25 @@
 //
 
 #include <dlfcn.h>
+#import "CaptainHook.h"
 
-%ctor {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    NSDictionary *prefs = [[NSDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.rheard.RHRevealLoader.plist"] retain];
-    NSString *libraryPath = @"/Library/MobileSubstrate/RevealServer";
-
-    if([[prefs objectForKey:[NSString stringWithFormat:@"RHRevealEnabled-%@", [[NSBundle mainBundle] bundleIdentifier]]] boolValue]) {
-        if ([[NSFileManager defaultManager] fileExistsAtPath:libraryPath]){
+CHConstructor // code block that runs immediately upon load
+{
+    @autoreleasepool
+    {
+        NSDictionary *prefs = [NSDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.rheard.RHRevealLoader.plist"];
+        NSString *libraryPath = @"/Library/MobileSubstrate/DynamicLibraries/RevealServer";
+        if([[prefs objectForKey:[NSString stringWithFormat:@"RHRevealEnabled-%@", [[NSBundle mainBundle] bundleIdentifier]]] boolValue]) {
             if ([[NSFileManager defaultManager] fileExistsAtPath:libraryPath]){
-                void *handle = dlopen([libraryPath UTF8String], RTLD_NOW);
-                if(handle){
+                void *addr = dlopen([libraryPath UTF8String], RTLD_NOW);
+                if(addr){
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"IBARevealRequestStart" object:nil];
-                    NSLog(@"Successed, path %p", libraryPath);
+                    NSLog(@"RevealLoader2 loaded %@ successed, address %p", libraryPath,addr);
                 } else{
-                    NSLog(@"Failed,  error: %s", dlerror());
+                    NSLog(@"RevealLoader2 loaded %@ failed, error %s", libraryPath,dlerror());
                 }
             }
         }
     }
-
-    [pool drain];
 }
+
